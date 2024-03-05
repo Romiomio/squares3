@@ -20,6 +20,16 @@ import 'dart:math';
     return root;
   }
 
+  int findClosest(int root, int step){
+    for (int i = 0; i<=step+1; i++){
+      int temp = root - i;
+      if ((temp-step)%10==0){
+        return temp;
+      }
+    }
+    return 0;
+  }
+
   int countRoot(BigInt res) {
         
         int temp;
@@ -39,26 +49,29 @@ void main() {
     var data = message.toString().split(' ');
     BigInt num = BigInt.parse(data[0]);
     int counts = 0;
-    int i = int.parse(data[1]);
+    int step = int.parse(data[1]);
+    int exactRoot = countRoot(num);
+    double approxRoot = sqrt(num.toDouble());
+    int i = findClosest(exactRoot, step);
     BigInt res;
     double progress_local;
     int temp;
     while (true) {
         counts+=1;
         res = num - BigInt.from(i)*BigInt.from(i);
-        progress_local = i/(sqrt(num.toDouble()));
+        progress_local = 1 - i/approxRoot;
         if (counts%10000==0){
           //print("$progress %");
           worker.sendMessage('progress $progress_local');
         }
-          if (res<=BigInt.zero){
-            worker.sendMessage('end 0');
+        if (i<=step){
+          worker.sendMessage('end 0');
           break;
         }
         int last_digits = (res % BigInt.from(100)).toInt();
 
         if (res>BigInt.from(200) && possible_endings.contains(last_digits) == false){
-          i+=10;
+          i-=10;
           continue;
         }
         temp = countRoot(res);
@@ -66,7 +79,7 @@ void main() {
           worker.sendMessage('answer $i $temp');
 
         }
-        i+=10;
+        i-=10;
       }
   });
  

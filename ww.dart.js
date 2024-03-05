@@ -4496,6 +4496,18 @@
       }
       return root;
     },
+    findClosest(root, step) {
+      var t1, i, temp;
+      for (t1 = step + 1, i = 0; i <= t1; ++i) {
+        temp = root - i;
+        if (B.JSInt_methods.$mod(temp - step, 10) === 0)
+          return temp;
+      }
+      return 0;
+    },
+    countRoot(res) {
+      return res.get$isValidInt() ? B.JSNumber_methods.round$0(Math.sqrt(res.toInt$0(0))) : B.JSNumber_methods.round$0(A.NewtonRoot(res, 1));
+    },
     main() {
       var worker, possible_endings, t1;
       A.printString("Worker created");
@@ -8332,7 +8344,7 @@
   };
   A.main_closure.prototype = {
     call$1(message) {
-      var t2, result, i, counts, res, t3, result0, last_digits, temp,
+      var t2, result, step, exactRoot, approxRoot, i, counts, res, t3, result0, last_digits, temp,
         _s11_ = "postMessage",
         data = J.toString$0$(message).split(" "),
         t1 = data.length;
@@ -8344,14 +8356,16 @@
         A.throwExpression(A.FormatException$("Could not parse BigInt", t2));
       if (1 >= t1)
         return A.ioore(data, 1);
-      i = A.int_parse(data[1]);
+      step = A.int_parse(data[1]);
+      exactRoot = A.countRoot(result);
+      approxRoot = Math.sqrt(result.toDouble$0(0));
+      i = A.findClosest(exactRoot, step);
       for (t1 = type$._BigIntImpl, t2 = this.possible_endings, counts = 0; true;) {
         ++counts;
         res = result.$sub(0, A._BigIntImpl__BigIntImpl$from(i).$mul(0, A._BigIntImpl__BigIntImpl$from(i)));
-        t3 = Math.sqrt(result.toDouble$0(0));
         if (counts % 10000 === 0)
-          $.$get$_context().callMethod$2(_s11_, ["progress " + A.S(i / t3)]);
-        if (res.compareTo$1(0, $.$get$_BigIntImpl_zero()) <= 0) {
+          $.$get$_context().callMethod$2(_s11_, ["progress " + A.S(1 - i / approxRoot)]);
+        if (i <= step) {
           $.$get$_context().callMethod$2(_s11_, ["end 0"]);
           break;
         }
@@ -8363,14 +8377,14 @@
           result0 = t3._isNegative ? result0.$sub(0, t3) : result0.$add(0, t3);
         last_digits = result0.toInt$0(0);
         if (res.compareTo$1(0, t1._as(A._BigIntImpl__BigIntImpl$from(200))) > 0 && !B.JSArray_methods.contains$1(t2, last_digits)) {
-          i += 10;
+          i -= 10;
           continue;
         }
         temp = res.get$isValidInt() ? B.JSNumber_methods.round$0(Math.sqrt(res.toInt$0(0))) : B.JSNumber_methods.round$0(A.NewtonRoot(res, 1));
         t3 = A._BigIntImpl__BigIntImpl$from(temp).$mul(0, A._BigIntImpl__BigIntImpl$from(temp)).compareTo$1(0, res);
         if (t3 === 0)
           $.$get$_context().callMethod$2(_s11_, ["answer " + i + " " + temp]);
-        i += 10;
+        i -= 10;
       }
     },
     $signature: 20
