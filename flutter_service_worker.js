@@ -19,15 +19,15 @@ const RESOURCES = {
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "738928f2bc93e5e59ced484c25ecb21a",
-"/": "738928f2bc93e5e59ced484c25ecb21a",
+"index.html": "75dbe9891e5209d51ab300b578e8c491",
+"/": "75dbe9891e5209d51ab300b578e8c491",
 "main.dart.js": "a6d6a6f2dba27f0c1f97fa5369549813",
 "manifest.json": "1c5fd603809cc1557a783b61ef51a666",
 "version.json": "e12d16673f638ed170a5f83edf27c036",
-"worker.dart": "c37a296ace2a6a9360624448d7b4dc61",
-"ww.dart.js": "127e1020f5b5b90ba4777e9bf5dfc86e",
+"worker.dart": "92ec31a38a89a02083133bdf79198012",
+"ww.dart.js": "05d8145f9b9ee98e7a09f78f6d52a846",
 "ww.dart.js.deps": "f9964493d2828baffc1b5f81942c8e6b",
-"ww.dart.js.map": "5144635a76bc6667dd42f7af4b95d722"
+"ww.dart.js.map": "650328bc868ecf270e152445bab7e7da"
 };
 
 // The application shell files that are downloaded before a service worker can

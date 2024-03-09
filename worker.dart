@@ -64,7 +64,7 @@ void main() {
           //print("$progress %");
           worker.sendMessage('progress $progress_local');
         }
-        if (i<=step){
+        if (i<step){
           worker.sendMessage('end 0');
           break;
         }

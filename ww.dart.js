@@ -8365,7 +8365,7 @@
         res = result.$sub(0, A._BigIntImpl__BigIntImpl$from(i).$mul(0, A._BigIntImpl__BigIntImpl$from(i)));
         if (counts % 10000 === 0)
           $.$get$_context().callMethod$2(_s11_, ["progress " + A.S(1 - i / approxRoot)]);
-        if (i <= step) {
+        if (i < step) {
           $.$get$_context().callMethod$2(_s11_, ["end 0"]);
           break;
         }
